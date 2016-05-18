@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/' debug="false">
+
+    <appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
+        <param name="Threshold" value="All"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d %-5r %-5p [%c] (%t:%x) %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="Poll" class="org.apache.log4j.RollingFileAppender">
+        <param name="Threshold" value="INFO"/>
+        <param name="File" value="logs\\logFile.log"/>
+        <param name="MaxFileSize" value="5000KB"/>
+        <param name="MaxBackupIndex" value="10"/>
+
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d [%t] %-5p %40.40c - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="PollWorkerAnalysisApi" class="org.apache.log4j.RollingFileAppender">
+        <param name="Threshold" value="INFO"/>
+        <param name="File" value="logs\\logFileAnalysisApi.log"/>
+        <param name="MaxFileSize" value="5000KB"/>
+        <param name="MaxBackupIndex" value="10"/>
+
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d [%t] %-5p %40.40c - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="PollWorkerAnalysisBaselineApi" class="org.apache.log4j.RollingFileAppender">
+        <param name="Threshold" value="INFO"/>
+        <param name="File" value="logs\\logFileAnalysisBaselineApi.log"/>
+        <param name="MaxFileSize" value="5000KB"/>
+        <param name="MaxBackupIndex" value="10"/>
+
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d [%t] %-5p %40.40c - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="PollWorkerAnalysisDetailApi" class="org.apache.log4j.RollingFileAppender">
+        <param name="Threshold" value="INFO"/>
+        <param name="File" value="logs\\logFileAnalysisDetailApi.log"/>
+        <param name="MaxFileSize" value="5000KB"/>
+        <param name="MaxBackupIndex" value="10"/>
+
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d [%t] %-5p %40.40c - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="PollWorkerAnalysisGraphApi" class="org.apache.log4j.RollingFileAppender">
+        <param name="Threshold" value="INFO"/>
+        <param name="File" value="logs\\logFileAnalysisGraphApi.log"/>
+        <param name="MaxFileSize" value="5000KB"/>
+        <param name="MaxBackupIndex" value="10"/>
+
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d [%t] %-5p %40.40c - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="PollWorkerApplicationSearchApi" class="org.apache.log4j.RollingFileAppender">
+        <param name="Threshold" value="INFO"/>
+        <param name="File" value="logs\\logFileApplicationSearchApi.log"/>
+        <param name="MaxFileSize" value="5000KB"/>
+        <param name="MaxBackupIndex" value="10"/>
+
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d [%t] %-5p %40.40c - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="PollError" class="org.apache.log4j.RollingFileAppender">
+        <param name="Threshold" value="ERROR"/>
+        <param name="File" value="logs\\logFileError.log"/>
+        <param name="MaxFileSize" value="5000KB"/>
+        <param name="MaxBackupIndex" value="10"/>
+
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d [%t] %-5p %40.40c - %m%n"/>
+        </layout>
+    </appender>
+
+    <!--
+        <appender name="ErrorMailer" class="org.apache.log4j.net.SMTPAppender">
+            <param name="Threshold" value="FATAL"/>
+            <param name="To" value="scott.barlev@ca.com"/>
+            <param name="From" value="QinPin"/>
+            <param name="Subject" value="Things are not going as planned. "/>
+            <param name="SMTPHost" value="relay.ca.com"/>
+            <param name="bufferSize" value="10"/>
+            <layout class="org.apache.log4j.HTMLLayout">
+            </layout>
+        </appender>
+    -->
+
+    <logger name="com.ca.regression.restapi.business.application.threads.ThreadAnalysisApi" additivity="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="PollWorkerAnalysisApi"/>
+        <appender-ref ref="PollError"/>
+    </logger>
+
+    <logger name="com.ca.regression.restapi.business.application.threads.ThreadAnalysisBaselineApi" additivity="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="PollWorkerAnalysisBaselineApi"/>
+        <appender-ref ref="PollError"/>
+    </logger>
+
+    <logger name="com.ca.regression.restapi.business.application.threads.ThreadAnalysisDetailApi" additivity="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="PollWorkerAnalysisDetailApi"/>
+        <appender-ref ref="PollError"/>
+    </logger>
+
+    <logger name="com.ca.regression.restapi.business.application.threads.ThreadAnalysisGraphApi" additivity="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="PollWorkerAnalysisGraphApi"/>
+        <appender-ref ref="PollError"/>
+    </logger>
+
+    <logger name="com.ca.regression.restapi.business.application.threads.ThreadApplicationSearch" additivity="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="PollWorkerApplicationSearchApi"/>
+        <appender-ref ref="PollError"/>
+    </logger>
+
+    <logger name="com.ca" additivity="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="Poll"/>
+        <appender-ref ref="PollError"/>
+    </logger>
+
+    <logger name="org.springframework" additivity="false">
+        <level value="WARN"/>
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="Poll"/>
+        <appender-ref ref="PollError"/>
+    </logger>
+
+    <logger name="com.datastax" additivity="false">
+        <level value="WARN"/>
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="Poll"/>
+        <appender-ref ref="PollError"/>
+    </logger>
+
+    <root>
+        <priority value="INFO"/>
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+
+</log4j:configuration>

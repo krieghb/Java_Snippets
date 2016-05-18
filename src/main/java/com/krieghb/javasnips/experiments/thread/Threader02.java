@@ -1,7 +1,8 @@
 package com.krieghb.javasnips.experiments.thread;
 
-import com.krieghb.snippets.utilities.SafeClose;
-import com.krieghb.snippets.utilities.UtilityMethods;
+import com.krieghb.javasnips.utilities.SafeClose;
+import com.krieghb.javasnips.utilities.UtilityMethods;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -5,6 +5,7 @@ import com.krieghb.javasnips.regex.LoopyReg;
 
 import com.krieghb.javasnips.regex.JregexMain;
 import com.krieghb.javasnips.regex.RegexMain;
+import com.krieghb.javasnips.regex.RegexParen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,9 +30,12 @@ public class JavaSnipsMain {
     public static void main (String[] args) {
 
 
-        RegexMain regexMain = new RegexMain();
+        RegexParen regexParen = new RegexParen();
+        regexParen.testParanthesis();
+
+//        RegexMain regexMain = new RegexMain();
 //        regexMain.testReg();
-        regexMain.testLookaheads();
+//        regexMain.testLookaheads();
 //        regexMain.testLoop();
 
 //        logger.info("\n\n\n");

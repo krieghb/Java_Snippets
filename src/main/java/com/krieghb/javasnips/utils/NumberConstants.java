@@ -7,6 +7,6 @@ package com.krieghb.javasnips.utils;
 public class NumberConstants {
 
 
-    public static final int LOOPY = 10000000;
+    public static final int LOOPY = 1000000;
     public static final int AVG_LOOP = 5;
 }

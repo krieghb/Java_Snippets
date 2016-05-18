@@ -1,14 +1,9 @@
 package com.krieghb.javasnips.experiments.thread;
 
-import com.krieghb.snippets.utilities.SafeClose;
+import com.krieghb.javasnips.utilities.SafeClose;
 
 import java.io.*;
 
-//import com.krieghb.snippets.utilities.UtilityMethods;
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
-//import com.krieghb.snippets.utilities.FileUtilityMethods;
-//import com.krieghb.snippets.utilities.UtilityMethods;
 
 public class Threader01 extends Thread  {
 	

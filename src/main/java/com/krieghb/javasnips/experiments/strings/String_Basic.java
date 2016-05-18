@@ -1,7 +1,6 @@
 package com.krieghb.javasnips.experiments.strings;
 
-import static com.krieghb.snippets.utilities.String_Constants.*;
-import static com.krieghb.snippets.utilities.String_Constants.STAR_SEPERATOR;
+import static com.krieghb.javasnips.utilities.String_Constants.STAR_SEPERATOR;
 
 public class String_Basic {
 	

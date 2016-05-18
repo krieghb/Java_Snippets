@@ -1,6 +1,7 @@
 package com.krieghb.javasnips.tutorials.spring.transactiondecl;
 
-import com.krieghb.snippets.utilities.Utility;
+import com.krieghb.javasnips.utilities.Utility;
+
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
