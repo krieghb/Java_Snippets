@@ -39,4 +39,32 @@ public class FileUtilityMethods {
             SafeClose.safeClose(fileWriter);
         }
     }
+
+
+    public static String readFromFile(String filePath) {
+        StringBuilder outString = new StringBuilder();
+        String eachLine;
+        FileReader fileReader = null;
+        BufferedReader bufferedReader = null;
+
+        try {
+            fileReader = new FileReader(new File(filePath));
+
+            bufferedReader = new BufferedReader(fileReader);
+
+            while ((eachLine = bufferedReader.readLine()) != null) {
+                outString.append(eachLine);
+            }
+        }
+        catch (FileNotFoundException e) {
+            logger.error("File '{}' not found", filePath);
+        }
+        catch (IOException e) {
+            logger.error("IO Exception in readying file '{}'", filePath);
+        }
+
+
+
+        return outString.toString();
+    }
 }

@@ -3,6 +3,9 @@ package com.krieghb.javasnips.experiments;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.AbstractCollection;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -68,6 +71,64 @@ public class Regex {
             logger.info("NO MATCH to '{}'", regPattern.pattern());
         }
         return isPresent;
+    }
+
+
+
+    public void testSsnReg() {
+
+        ArrayList<String> validStrings = new ArrayList<>(Arrays.asList("123-45-6789", "123-12-0001", "111.11.1112", "812|11|1234", "123\\98\\123"));
+        ArrayList<String> inValidStrings = new ArrayList<>(Arrays.asList("000-00-0000", "111111111", "123.55.0000", "000|88|6548", "123-00-0192", "666-12-1234", "999-12-9391"));
+
+        String ssnValid = "123-45-6789";
+        String ssnValid2 = "123-12-0001";
+        String ssnValid3 = "111.11.1112";
+        String ssnInvalid = "000-00-0000";
+        String ssnInvalid2 = "123-01-0000";
+        String ssnInvalid3 = "111111111";
+        String myPattern = "(?!({rep}\\d){\\rep}{8})(\\d{9})";
+        String myPattern2 = "(?!({rep}\\d){\\rep}{2}({ssn_delim}[ .|-]?){\\rep}{2}{\\ssn_delim}{\\rep}{3})(\\d{3}{\\ssn_delim}\\d{2}{\\ssn_delim}\\d{4})";
+        String myPattern3 = "(\\d{3}({ssn_delim_a}[ .|-]?)\\d{2}{\\ssn_delim_a}\\d{4})";
+        String myPattern4 = "(?!({rep}\\d){\\rep}{2}({ssn_delim_n}[ .|-]?){\\rep}{2}{\\ssn_delim_n}{\\rep}{4})(\\d{9})([0-9]{3}({ssn_delim}[ .|-]?)[0-9]{2}{\\ssn_delim}[0-9]{4})";
+        String myPattern1 = "(?!({rep}\\d){\\rep}{2}({delim}[ .]?){\\rep}{2}{\\delim}{\\rep}{4})(\\d{3}({ssn_delim}[ .|-]?)\\d{2}{\\ssn_delim}\\d{4})";
+        String myPattern5 = "(?!({rep}\\d){\\rep}{2}({delim}[ .|-]?){\\rep}{2}{\\delim}{\\rep}{4})(?!000|666|9[0-9]{2})[0-9]{3}({ssn_delim}[ .|-]?)(?!00)[0-9]{2}{\\ssn_delim}(?!0000)[0-9]{4}";
+
+        String ssnPattern = "((?!\\b(\\d)\\3+-(\\d)\\3+-(\\d)\\2+\\b)(?!000|666|9[0-9]{2})[0-9]{3}({ssn_delim}[ .|-]?)(?!00)[0-9]{2}{\\ssn_delim}(?!0000)[0-9]{4})";
+
+        String ssnGoodPattern = "(?!({rep}\\d){\\rep}{2}({rep_delim}[ .|-]?){\\rep}{2}{\\rep_delim}{\\rep}{4})(?!000|666|9[0-9]{2})[0-9]{3}({ssn_delim}[ .|-]?)(?!00)[0-9]{2}{\\ssn_delim}(?!0000)[0-9]{4}";
+
+        String anotherPatter = "([0-9]{3}[\\.|-][0-9]{2}[\\.|-][0-9]{4})";
+
+        jregex.Pattern jPat = new jregex.Pattern(ssnGoodPattern);
+        jregex.Matcher matcher;
+
+        // For invalid
+        for (String invalid : inValidStrings) {
+            matcher = jPat.matcher(invalid);
+            if (matcher.find()) {
+                logger.info("Incorrectly Found match for invalid . . .:  {}", matcher.group(0));
+            }
+            else {
+                logger.info("Correctly did not find match for invalid string: {}", invalid);
+            }
+        }
+
+
+        //  For valid
+        for (String valid : validStrings) {
+            matcher = jPat.matcher(valid);
+
+            if (matcher.find()) {
+                logger.info("Correctly Found match for Valid . . .:  {}", matcher.group(0));
+            } else {
+                logger.info("Incorrectly did not find match for valid string: {}", valid);
+            }
+        }
+
+
+
+
+
     }
 
 }

@@ -2,6 +2,7 @@ package com.krieghb.javasnips.regex;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.access.method.P;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -125,7 +126,9 @@ public class RegexMain {
         //  using back ref (the \\3 references a previous group - rule of thumb, count open parenthesis in this case the [-])
         String colorBackRef = "((\\d{2}([-]?)((00[1-9])|(0[1-9][0-9])|([1-2][0-9][0-9])|(3[0-5][0-9])|(36[0-6]))\\3\\d{4})|([a-zA-Z]\\d{6}))";
         String colorBackRefName = "((\\d{2}(?<dash>[-]?)((00[1-9])|(0[1-9][0-9])|([1-2][0-9][0-9])|(3[0-5][0-9])|(36[0-6]))\\k<dash>\\d{4})|([a-zA-Z]\\d{6}))";
-        String colorIsh = "123456789";
+        String colorBackRefNameJ = "((\\d{2}({dash}[-]?)((00[1-9])|(0[1-9][0-9])|([1-2][0-9][0-9])|(3[0-5][0-9])|(36[0-6])){\\dash}\\d{4})|([a-zA-Z]\\d{6}))";
+        String coBackJTest = "";
+        String colorIsh = "99-366-9876";
 
         String ohboy = "\\d{1,4} [a-zA-z\\s]{1,20}(?:ALLEY|Alley|ALLEE|Allee|ALY|Aly|ALLY|Ally|ANNEX|Annex|ANEX|Anex|ANX|Anx|ANNX|Annx|ARCADE|Arcade|ARC|Arc|AVENUE|Avenue|AV|Av|AVE|Ave|AVEN|Aven|AVENU|Avenu|AVN|Avn|AVNUE|Avnue|BAYOO|Bayoo|BYU|Byu|BAYOU|Bayou|BEACH|Beach|BCH|Bch|BEND|Bend|BND|Bnd|BLUFF|Bluff|BLF|Blf|BLUF|Bluf|BLUFFS|Bluffs|BLFS|Blfs|BOTTOM|Bottom|BOT|Bot|BTM|Btm|BOTTM|Bottm|BOULEVARD|Boulevard|BLVD|Blvd|BOUL|Boul|BOULV|Boulv|BRANCH|Branch|BR|Br|BRNCH|Brnch|BRIDGE|Bridge|BRDGE|Brdge|BRG|Brg|BROOK|Brook|BRK|Brk|BROOKS|Brooks|BRKS|Brks|BURG|Burg|BG|Bg|BURGS|Burgs|BGS|Bgs|BYPASS|Bypass|BYP|Byp|BYPA|Bypa|BYPAS|Bypas|BYPS|Byps|CAMP|Camp|CP|Cp|CMP|Cmp|CANYON|Canyon|CANYN|Canyn|CYN|Cyn|CNYN|Cnyn|CAPE|Cape|CPE|Cpe|CAUSEWAY|Causeway|CSWY|Cswy|CAUSWAY|Causway|CENTER|Center|CEN|Cen|CTR|Ctr|CENT|Cent|CENTR|Centr|CENTRE|Centre|CNTER|Cnter|CNTR|Cntr|CENTERS|Centers|CTRS|Ctrs|CIRCLE|Circle|CIR|Cir|CIRC|Circ|CIRCL|Circl|CRCL|Crcl|CRCLE|Crcle|CIRCLES|Circles|CIRS|Cirs|CLIFF|Cliff|CLF|Clf|CLIFFS|Cliffs|CLFS|Clfs|CLUB|Club|CLB|Clb|COMMON|Common|CMN|Cmn|CORNER|Corner|COR|Cor|CORNERS|Corners|CORS|Cors|COURSE|Course|CRSE|Crse|COURT|Court|CT|Ct|CRT|Crt|COURTS|Courts|CTS|Cts|COVE|Cove|CV|Cv|COVES|Coves|CVS|Cvs|CREEK|Creek|CK|Ck|CRK|Crk|CR|Cr|CRESCENT|Crescent|CRECENT|Crecent|CRES|Cres|CRESENT|Cresent|CRSCNT|Crscnt|CRSENT|Crsent|CRSNT|Crsnt|CREST|Crest|CRST|Crst|CROSSING|Crossing|XING|Xing|CRSSING|Crssing|CRSSNG|Crssng|CROSSROAD|Crossroad|XRD|Xrd|CURVE|Curve|CURV|Curv|DALE|Dale|DL|Dl|DAM|Dam|DM|Dm|DIVIDE|Divide|DIV|Div|DV|Dv|DVD|Dvd|DRIVE|Drive|DR|Dr|DRIV|Driv|DRV|Drv|DRIVES|Drives|DRS|Drs|ESTATE|Estate|EST|Est|ESTATES|Estates|ESTS|Ests|EXPRESSWAY|Expressway|EXP|Exp|EXPY|Expy|EXPR|Expr|EXPRESS|Express|EXPW|Expw|EXTENSION|Extension|EXT|Ext|EXTN|Extn|EXTNSN|Extnsn|EXTENSIONS|Extensions|EXTS|Exts|FALL|Fall|FALLS|Falls|FLS|Fls|FERRY|Ferry|FRY|Fry|FRRY|Frry|FIELD|Field|FLD|Fld|FIELDS|Fields|FLDS|Flds|FLAT|Flat|FLT|Flt|FLATS|Flats|FLTS|Flts|FORD|Ford|FRD|Frd|FORDS|Fords|FRDS|Frds|FOREST|Forest|FRST|Frst|FORESTS|Forests|FORGE|Forge|FORG|Forg|FRG|Frg|FORGES|Forges|FRGS|Frgs|FORK|Fork|FRK|Frk|FORKS|Forks|FRKS|Frks|FORT|Fort|FT|Ft|FRT|Frt|FREEWAY|Freeway|FWY|Fwy|FREEWY|Freewy|FRWAY|Frway|FRWY|Frwy|GARDEN|Garden|GDN|Gdn|GARDN|Gardn|GRDEN|Grden|GRDN|Grdn|GARDENS|Gardens|GDNS|Gdns|GRDNS|Grdns|GATEWAY|Gateway|GTWY|Gtwy|GATEWY|Gatewy|GATWAY|Gatway|GTWAY|Gtway|GLEN|Glen|GLN|Gln|GLENS|Glens|GLNS|Glns|GREEN|Green|GRN|Grn|GREENS|Greens|GRNS|Grns|GROVE|Grove|GROV|Grov|GRV|Grv|GROVES|Groves|GRVS|Grvs|HARBOR|Harbor|HARB|Harb|HBR|Hbr|HARBR|Harbr|HRBOR|Hrbor|HARBORS|Harbors|HBRS|Hbrs|HAVEN|Haven|HVN|Hvn|HAVN|Havn|HEIGHTS|Heights|HEIGHT|Height|HTS|Hts|HGTS|Hgts|HT|Ht|HIGHWAY|Highway|HWY|Hwy|HIGHWY|Highwy|HIWAY|Hiway|HIWY|Hiwy|HWAY|Hway|HILL|Hill|HL|Hl|HILLS|Hills|HLS|Hls|HOLLOW|Hollow|HLLW|Hllw|HOLW|Holw|HOLLOWS|Hollows|HOLWS|Holws|INLET|Inlet|INLT|Inlt|ISLAND|Island|IS|Is|ISLND|Islnd|ISLANDS|Islands|SS|Ss|I|SLNDS|Slnds|ISS|Iss|ISLE|Isle|ISLES|Isles|JUNCTION|Junction|JCT|Jct|JCTION|Jction|JCTN|Jctn|JUNCTN|Junctn|JUNCTON|Juncton|JUNCTIONS|Junctions|JCTNS|Jctns|JCTS|Jcts|KEY|Key|KY|Ky|KEYS|Keys|KYS|Kys|KNOLL|Knoll|KNL|Knl|KNOL|Knol|KNOLLS|Knolls|KNLS|Knls|LAKE|Lake|LK|Lk|LAKES|Lakes|LKS|Lks|LAND|Land|LANDING|Landing|LNDG|Lndg|LNDNG|Lndng|LANE|Lane|LA|La|LN|Ln|LANES|Lanes|LIGHT|Light|LGT|Lgt|LIGHTS|Lights|LGTS|Lgts|LOAF|Loaf|LF|Lf|LOCK|Lock|LCK|Lck|LOCKS|Locks|LCKS|Lcks|LODGE|Lodge|LDG|Ldg|LDGE|Ldge|LODG|Lodg|LOOP|Loop|LOOPS|Loops|MALL|Mall|MANOR|Manor|MNR|Mnr|MANORS|Manors|MNRS|Mnrs|MEADOW|Meadow|MDW|Mdw|MEADOWS|Meadows|MDWS|Mdws|MEDOWS|Medows|MEWS|Mews|MILL|Mill|ML|Ml|MILLS|Mills|MLS|Mls|MISSION|Mission|MSN|Msn|MISSN|Missn|MSSN|Mssn|MOTORWAY|Motorway|MTWY|Mtwy|MOUNT|Mount|MNT|Mnt|MT|Mt|MOUNTAIN|Mountain|MNTAIN|Mntain|MTN|Mtn|MNTN|Mntn|MOUNTIN|Mountin|MTIN|Mtin|MOUNTAINS|Mountains|MNTNS|Mntns|MTNS|Mtns|NECK|Neck|NCK|Nck|ORCHARD|Orchard|ORCH|Orch|ORCHRD|Orchrd|OVAL|Oval|OVL|Ovl|OVERPASS|Overpass|OPAS|Opas|PARK|Park|PK|Pk|PRK|Prk|PARKS|Parks|PARKWAY|Parkway|PKWY|Pkwy|PARKWY|Parkwy|PKWAY|Pkway|PKY|Pky|PARKWAYS|Parkways|PKWYS|Pkwys|PASS|Pass|PASSAGE|Passage|PSGE|Psge|PATH|Path|PATHS|Paths|PIKE|Pike|PIKES|Pikes|PINE|Pine|PNE|Pne|PINES|Pines|PNES|Pnes|PLACE|Place|PL|Pl|PLAIN|Plain|PLN|Pln|PLAINS|Plains|PLAINES|Plaines|PLNS|Plns|PLAZA|Plaza|PLZ|Plz|PLZA|Plza|POINT|Point|PT|Pt|POINTS|Points|PTS|Pts|PORT|Port|PRT|Prt|PORTS|Ports|PRTS|Prts|PRAIRIE|Prairie|PR|Pr|PRARIE|Prarie|PRR|Prr|RADIAL|Radial|RAD|Rad|RADL|Radl|RADIEL|Radiel|RAMP|Ramp|RANCH|Ranch|RNCH|Rnch|RANCHES|Ranches|RNCHS|Rnchs|RAPID|Rapid|RPD|Rpd|RAPIDS|Rapids|RPDS|Rpds|REST|Rest|RST|Rst|RIDGE|Ridge|RDG|Rdg|RDGE|Rdge|RIDGES|Ridges|RDGS|Rdgs|RIVER|River|RIV|Riv|RIVR|Rivr|RVR|Rvr|ROAD|Road|RD|Rd|ROADS|Roads|RDS|Rds|ROUTE|Route|RTE|Rte|ROW|Row|RUE|Rue|RUN|Run|SHOAL|Shoal|SHL|Shl|SHOALS|Shoals|SHLS|Shls|SHORE|Shore|SHOAR|Shoar|SHR|Shr|SHORES|Shores|SHOARS|Shoars|SHRS|Shrs|SKYWAY|Skyway|SKWY|Skwy|SPRING|Spring|SPG|Spg|SPNG|Spng|SPRNG|Sprng|SPRINGS|Springs|SPGS|Spgs|SPNGS|Spngs|SPRNGS|Sprngs|SPUR|Spur|SPURS|Spurs|SQUARE|Square|SQ|Sq|SQR|Sqr|SQRE|Sqre|SQU|Squ|SQUARES|Squares|SQRS|Sqrs|SQS|Sqs|STATION|Station|STA|Sta|STATN|Statn|STN|Stn|STRAVENUE|Stravenue|STRA|Stra|STRAV|Strav|STRAVE|Strave|STRAVEN|Straven|STRAVN|Stravn|STRVN|Strvn|STRVNUE|Strvnue|STREAM|Stream|STRM|Strm|STREME|Streme|STREET|Street|ST|St|STR|Str|STRT|Strt|STREETS|Streets|STS|Sts|SUMMIT|Summit|SMT|Smt|SUMIT|Sumit|SUMITT|Sumitt|TERRACE|Terrace|TER|Ter|TERR|Terr|THROUGHWAY|Throughway|TRWY|Trwy|TRACE|Trace|TRCE|Trce|TRACES|Traces|TRACK|Track|TRAK|Trak|TRACKS|Tracks|TRK|Trk|TRKS|Trks|TRAFFICWAY|Trafficway|TRFY|Trfy|TRAIL|Trail|TR|Tr|TRL|Trl|TRAILS|Trails|TRLS|Trls|TUNNEL|Tunnel|TUNEL|Tunel|TUNL|Tunl|TUNLS|Tunls|TUNNELS|Tunnels|TUNNL|Tunnl|TURNPIKE|Turnpike|TPK|Tpk|TPKE|Tpke|TRNPK|Trnpk|TRPK|Trpk|TURNPK|Turnpk|UNDERPASS|Underpass|UPAS|Upas|UNION|Union|UN|Un|UNIONS|Unions|UNS|Uns|VALLEY|Valley|VLY|Vly|VALLY|Vally|VLLY|Vlly|VALLEYS|Valleys|VLYS|Vlys|VIADUCT|Viaduct|VDCT|Vdct|IA|Ia|VIA|Via|VIADCT|Viadct|VIEW|View|VW|Vw|VIEWS|Views|VWS|Vws|VILLAGE|Village|VILL|Vill|VLG|Vlg|VILLAG|Villag|VILLG|Villg|VILLIAGE|Villiage|VILLAGES|Villages|VLGS|Vlgs|VILLE|Ville|VL|Vl|VISTA|Vista|VIS|Vis|VIST|Vist|VST|Vst|VSTA|Vsta|WALK|Walk|WALKS|Walks|WALL|Wall|WAY|Way|WY|Wy|WAYS|Ways|WELL|Well|WL|Wl|WELLS|Wells|WLS|Wls)\\W?(?=\\s|$)";
 
@@ -134,26 +137,71 @@ public class RegexMain {
         String whoopPattern = "WHOOP";
 
 
+        String phoneNumOrig = "((?:(?<![\\d-])(?:\\+?\\d{1,3}[-\\.\\s*]?)?(?:\\(?\\d{3}\\)?[-\\.\\s*]?)?\\d{3}[-\\.\\s*]?\\d{4}(?![\\d-]))|(?:(?<![\\d-])(?:(?:\\(\\+?\\d{2}\\))|(?:\\+?\\d{2}))\\s*\\d{2}\\s*\\d{3}\\s*\\d{4}(?![\\d-])))";
+        String phoneNumStr = "(+60) 12 123 1234";
 
-        jregex.Pattern jPattern = new jregex.Pattern(birthdat4J);
-        jregex.Matcher jMatcher = jPattern.matcher(birthdateStr2);
-        Pattern compliedPattern = Pattern.compile(birthday4);
-        Matcher matched = compliedPattern.matcher(birthdateStr2);
+        String phoneNum1 = "(?<![\\d-])(?:\\+?\\d{1,3}[-\\.\\s*]?)?(?:\\(?\\d{3}\\)?[-\\.\\s*]?)?\\d{3}[-\\.\\s*]?\\d{4}(?![\\d-])";
+        String phoneNum2 = "(?<![\\d-])(?:(?:\\(\\+?\\d{2}\\))|(?:\\+?\\d{2}))\\s*\\d{2}\\s*\\d{3}\\s*\\d{4}(?![\\d-])";
+
+        ArrayList<String> phonePatLists = new ArrayList<>();
+//        phonePatLists.add(phoneNum1);
+        phonePatLists.add(phoneNum2);
+
+
+        jregex.Pattern jPattern = new jregex.Pattern(phoneNumOrig);
+        jregex.Matcher jMatcher = jPattern.matcher(phoneNumStr);
+
+        Pattern compliedPattern = Pattern.compile(phoneNum2);
+        Matcher matched = compliedPattern.matcher(phoneNumStr);
+
+        String regFound = "";
+        String jreFound = "";
+        String regListFound = "";
+        String jreListFound = "";
 
         if (matched.find()) {
-//            for (int i = 0; i <= matched.groupCount(); i++) {
-                logger.info("Found match:  '{}';\t\tin group #{}", matched.group(0), 0);
-//            }
+            regFound = matched.group(0);
+                logger.info("Found match:  '{}';\t\tin group #{}", regFound, 0);
         }
         else {
+            regFound = "NO MATCH";
             logger.info("NO MATCH to '{}'", compliedPattern.pattern());
         }
 
         if (jMatcher.find()) {
-            logger.info("JREGEX Found a match too:  {}", jMatcher.group(0));
+            jreFound = jMatcher.group(0);
+            logger.info("JREGEX Found a match too:  {}", jreFound);
         }
         else {
+            jreFound = "NO MATCH";
             logger.info("JEREGX Found NO MATCH to '{}'", jPattern.toString());
+        }
+
+        for (String lPattern : phonePatLists) {
+//            Pattern lRPattern = Pattern.compile(lPattern);
+//            Matcher lRMatcher = lRPattern.matcher(phoneNumStr);
+            jregex.Pattern lJPattern = new jregex.Pattern(lPattern);
+            jregex.Matcher lJMatcher = lJPattern.matcher(phoneNumStr);
+
+            if (lJMatcher.find()){
+                jreListFound = lJMatcher.group(0);
+                regListFound = jreListFound;
+                logger.info("List Found match:  '{}';\t\tin group #{}", jreListFound, 0);
+                break;
+            }
+            else {
+                jreListFound = "NO MATCH";
+                regListFound = "NO MATCH";
+                logger.info("List NO MATCH to '{}'", lJPattern.toString());
+            }
+        }
+
+        if (regFound.equals(jreFound) && regFound.equals(jreListFound) && regFound.equals(regListFound)) {
+            logger.info("All found the same pattern result");
+        }
+        else {
+            logger.info("Some results failed to match identically.");
+            logger.info("\n    Reg:\t\t{}\n    Jreg:\t\t{}\n    ListReg:\t{}\n    ListJreg:\t{}", regFound, jreFound, regListFound, jreListFound);
         }
     }
 
