@@ -8,5 +8,5 @@ public class NumberConstants {
 
 
     public static final int LOOPY = 10;
-    public static final int AVG_LOOP = 100;
+    public static final int AVG_LOOP = 10000;
 }

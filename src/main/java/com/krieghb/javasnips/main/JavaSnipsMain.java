@@ -1,18 +1,19 @@
 package com.krieghb.javasnips.main;
 
 
-import com.krieghb.javasnips.experiments.Regex;
+import com.krieghb.javasnips.experiments.BDValidator;
 import com.krieghb.javasnips.regex.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.krieghb.javasnips.utils.Randomness;
-
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.krieghb.javasnips.utils.NumberConstants.AVG_LOOP;
 import static com.krieghb.javasnips.utils.NumberConstants.LOOPY;
+import static com.krieghb.javasnips.utils.StringConstants.NON_CAPTURE_JREG;
 
 
 /**
@@ -43,13 +44,37 @@ public class JavaSnipsMain {
 //        testRegs();
 
 
-        ReadShakes readShakes = new ReadShakes();
+//        ReadShakes readShakes = new ReadShakes();
 //        readShakes();
+
 
 //        Regex regex = new Regex();
 //        regex.testSsnReg();
 
 //        testJ();
+
+        testDate();
+
+
+
+//        String classTest = "[\\a]";
+//        String ssnTest = "(?!({rep}\\d){\\rep}{2}({rep_delim}[ .|-]){\\rep}{2}{\\rep_delim}{\\rep}{4})(?!078({ssn_delim1}[ .|-])05{\\ssn_delim1}1120)(?!219({ssn_delim2}[ .|-])09{\\ssn_delim2}9999)(?!000|666|9[0-9]{2})[0-9]{3}({ssn_delim}[ .|-])(?!00)[0-9]{2}{\\ssn_delim}(?!0000)[0-9]{4}";
+//        String austTest = "((?i)(?=.{2}\\d{2})(?=(?:.*\\d){4})(?=(?:(?:[^a-z]*[a-z][^a-z]*){0,2}|\\d+))[a-z0-9]{4,9})";
+//
+//
+//        String anotherOne = "\\b34\\b";
+////        Pattern pattern = Pattern.compile(coOne);
+////        Matcher matcher = pattern.matcher("12-123-1234");
+//        jregex.Pattern pattern = new jregex.Pattern(austTest);
+////        jregex.Matcher matcher = pattern.matcher("00500321Turnpike     Lam    \\     P22W490 Highway -#34# #      Daytona    FL03091T651-545-81-071-0046870  0780.51.1201");
+//        jregex.Matcher matcher = pattern.matcher("F23DD6D789");
+//
+//        if (matcher.find()) {
+//            logger.info("Found the match:  '{}'", matcher.group(0));
+//        }
+//        else {
+//            logger.info("Did NOT find the match");
+//        }
 
     }
 
@@ -94,5 +119,13 @@ public class JavaSnipsMain {
         }
 
     }
-    
+
+
+
+    public static void testDate() {
+        BDValidator bdValidator = new BDValidator();
+        String myDate = "2/0/12";
+        logger.info("Validated?:  {}", bdValidator.validate(myDate));
+
+    }
 }

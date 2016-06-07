@@ -46,7 +46,8 @@ public class ReadShakes {
     String donate = "The Complete";
 
     private jregex.Pattern pattern = new jregex.Pattern(donate);
-    private jregex.Matcher matcher = pattern.matcher();
+    private jregex.Matcher matcher;
+//    private Matcher matcher;
     private Matcher matcherReg;
     private Pattern patt2 = Pattern.compile(donate);
     private Matcher match;
@@ -103,59 +104,62 @@ public class ReadShakes {
 
             //  Looping to get an average time for each
             for (int j = 0; j < AVG_LOOP; j++) {
-                for (int i = 0; i < LOOPY; i++) {
-                    beginMain = System.currentTimeMillis();
+                if (j % 1000 == 0) {
+                    logger.info("Loop: {}/{},  Current # of matches:  {}", j + 1, AVG_LOOP, getMatch());
+                }
 
-                    for (String filePath : SHAKESPEAR_LIST) {
-                        foundit = false;
+                beginMain = System.currentTimeMillis();
+
+                for (String filePath : SHAKESPEAR_LIST) {
+                    foundit = false;
 //                    logger.info("File:  {}", filePath);
 
-                        try {
+                    try {
 
-                            begin = System.currentTimeMillis();
-                            for (String newPattern : regexPatterns.getValue()) {
-                                if (foundit) {
-                                    break;
-                                }
-                                jregex.Pattern loopPattern = new jregex.Pattern(newPattern);
-//                        Pattern loopPattern = Pattern.compile(newPattern);
+                        begin = System.currentTimeMillis();
+                        for (String newPattern : regexPatterns.getValue()) {
+                            if (foundit) {
+                                break;
+                            }
+                              jregex.Pattern loopPattern = new jregex.Pattern(newPattern);
+//                            Pattern loopPattern = Pattern.compile(newPattern);
 //                            logger.info("Pattern:  {}", newPattern);
 
-                                fileReader = new FileReader(new File(filePath));
+                            fileReader = new FileReader(new File(filePath));
 
-                                bufferedReader = new BufferedReader(fileReader);
+                            bufferedReader = new BufferedReader(fileReader);
+                            eachLine = bufferedReader.readLine();
+                            while (eachLine != null) {
+                                matcher = loopPattern.matcher(eachLine);
                                 eachLine = bufferedReader.readLine();
-                                while (eachLine != null) {
-                                    matcher = loopPattern.matcher(eachLine);
-                                    eachLine = bufferedReader.readLine();
 
-                                    if (matcher.find()) {
+                                if (matcher.find()) {
 //                                        logger.info("J Found match:  '{}'   using:  '{}'", matcher.group(0), loopPattern);
-                                        incrementMatch();
-                                        foundit = true;
-                                        eachLine = null;
-                                    }
+                                    incrementMatch();
+                                    foundit = true;
+                                    eachLine = null;
                                 }
                             }
-
-                            end = System.currentTimeMillis();
-                            deltaTime = end - begin;
-
-                            patternsCount.replace(regexPatterns.getKey(), patternsCount.get(regexPatterns.getKey()) + deltaTime);
-
-                        } catch (FileNotFoundException e) {
-                            logger.error("File '{}' not found", filePath);
-                        } catch (IOException e) {
-                            logger.error("IO Exception in readying file '{}'", filePath);
                         }
-                    }
 
-                    endMain = System.currentTimeMillis();
-                    deltaTimeMain = endMain - beginMain;
+                        end = System.currentTimeMillis();
+                        deltaTime = end - begin;
+
+                        patternsCount.replace(regexPatterns.getKey(), patternsCount.get(regexPatterns.getKey()) + deltaTime);
+
+                    } catch (FileNotFoundException e) {
+                        logger.error("File '{}' not found", filePath);
+                    } catch (IOException e) {
+                        logger.error("IO Exception in readying file '{}'", filePath);
+                    }
+                }
+
+                endMain = System.currentTimeMillis();
+                deltaTimeMain = endMain - beginMain;
 //                    logger.info("Main loop #{};  Time:  {}", j, deltaTimeMain);
 
 //                patternsCount.replace(regexPatterns.getKey(), patternsCount.get(regexPatterns.getKey()) + deltaTimeMain);
-                }
+
             }
 
             logger.info("For {};  Matches:  {};   No Match:  {}", regexPatterns.getKey(), getMatch(), getNoMatch());

@@ -115,7 +115,9 @@ public class StringConstants {
     private static final String SSN_OPT = "([0-9]{3}({ssn_delim}[ .|-]?)[0-9]{2}{\\ssn_delim}[0-9]{4})";
     private static final String SSN_OPT2 = "(?:(?:[0-9]{3})({ssn_delim}[ .|-]?)(?:[0-9]{2}){\\ssn_delim}[0-9]{4})";
 
-
+    private static final String CO_DL_O1 = "(?:\\d{2}-(?:(?:00[1-9])|(?:0[1-9][0-9])|(?:[1-2][0-9][0-9])|(?:3[0-5][0-9])|(?:36[0-6]))-\\d{4})";
+    private static final String CO_DL_O2 = "(?:\\d{2}(?:(?:00[1-9])|(?:0[1-9][0-9])|(?:[1-2][0-9][0-9])|(?:3[0-5][0-9])|(?:36[0-6]))\\d{4})";
+    private static final String CO_DL_COM = "(?:\\d{2}({co_delim}[ -]?)(?:(?:00[1-9])|(?:0[1-9][0-9])|(?:[1-2][0-9][0-9])|(?:3[0-5][0-9])|(?:36[0-6])){\\co_delim}\\d{4})";
 
 
     private static final String STRING_SSN_OPT_NON = "Non capturing";
@@ -124,6 +126,17 @@ public class StringConstants {
     private static final String SSN_OPT_ON = "(([0-9]{3})({ssn_delim}[ .|-]?)([0-9]{2}){\\ssn_delim}([0-9]{4}))";
     private static final ArrayList<String> SSN_OPT_NON_LIST = new ArrayList<>(Collections.singletonList(SSN_OPT_NON));
     private static final ArrayList<String> SSN_OPT_ON_LIST = new ArrayList<>(Collections.singletonList(SSN_OPT_ON));
+
+    public static final String PAREN_ONLY_JREG = "((((\\d)([a-z])(\\d))|((\\d)([A-Z])(\\d)))((\\d{2})|([*-]))(11))";
+    public static final String NON_CAPTURE_JREG = "(?:(?:(?:(?:\\d)(?:[a-z])(?:\\d))|(?:(?:\\d)(?:[A-Z])(?:\\d)))(?:(?:\\d{2})|(?:[*-]))(?:11))";
+    private static final String STRING_PAREN_ONLY_JREG = "Parenthesis Only Jreg";
+    private static final String STRING_NON_CAPTURE_JREG = "Non-Capturing Jreg";
+    public static final String PAREN_ONLY_REG = "((((\\d)([a-z])(\\d))|((\\d)([A-Z])(\\d)))((\\d{2})|([*-]))(11))";
+    public static final String NON_CAPTURE_REG = "(?:(?:(?:(?:\\d)(?:[a-z])(?:\\d))|(?:(?:\\d)(?:[A-Z])(?:\\d)))(?:(?:\\d{2})|(?:[*-]))(?:11))";
+    private static final String STRING_PAREN_ONLY_REG = "Parenthesis Only Reg";
+    private static final String STRING_NON_CAPTURE_REG = "Non-Capturing Reg";
+
+
 
     private static ArrayList<String> ssnOrignal = new ArrayList<>();
     private static ArrayList<String> ssnOptimized = new ArrayList<>();
@@ -411,8 +424,14 @@ public class StringConstants {
 //        regexMap.put(STRING_REGEX_SSN_ORIG, new ArrayList<>(getSsnOrignal()));
 
         // Capturing vs non capturing
-        regexMap.put(STRING_SSN_OPT_NON, SSN_OPT_NON_LIST);
-        regexMap.put(STRING_SSN_OPT_ON, SSN_OPT_ON_LIST);
+//        regexMap.put(STRING_SSN_OPT_NON, SSN_OPT_NON_LIST);
+//        regexMap.put(STRING_SSN_OPT_ON, SSN_OPT_ON_LIST);
+//        regexMap.put(STRING_PAREN_ONLY_JREG, new ArrayList<>(Collections.singletonList(PAREN_ONLY_JREG)));
+//        regexMap.put(STRING_NON_CAPTURE_JREG, new ArrayList<>(Collections.singletonList(NON_CAPTURE_JREG)));
+
+        regexMap.put(STRING_PAREN_ONLY_REG, new ArrayList<>(Collections.singletonList(PAREN_ONLY_REG)));
+        regexMap.put(STRING_NON_CAPTURE_REG, new ArrayList<>(Collections.singletonList(NON_CAPTURE_REG)));
+
 
         System.out.println("BUILT MAP:   " + regexMap);
     }
