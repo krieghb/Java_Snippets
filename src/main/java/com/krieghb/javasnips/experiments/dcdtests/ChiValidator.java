@@ -65,7 +65,6 @@ public class ChiValidator
             }
 
         }catch (Exception e) {
-            // TODO Auto-generated catch block
             logger.warn(
                     "Could not parse the date string, it's not a valid date.\n",
                     e);
