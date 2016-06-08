@@ -1,4 +1,4 @@
-package com.krieghb.javasnips.experiments;
+package com.krieghb.javasnips.experiments.dcdtests;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

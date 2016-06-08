@@ -1,19 +1,19 @@
 package com.krieghb.javasnips.main;
 
 
-import com.krieghb.javasnips.experiments.BDValidator;
+import com.krieghb.javasnips.experiments.dcdtests.BDValidator;
+import com.krieghb.javasnips.experiments.dcdtests.ChiValidator;
+import com.krieghb.javasnips.experiments.dcdtests.ChiValidatorFixed;
+import com.krieghb.javasnips.experiments.dcdtests.ChiValidatorFixed2;
 import com.krieghb.javasnips.regex.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static com.krieghb.javasnips.utils.NumberConstants.AVG_LOOP;
 import static com.krieghb.javasnips.utils.NumberConstants.LOOPY;
-import static com.krieghb.javasnips.utils.StringConstants.NON_CAPTURE_JREG;
 
 
 /**
@@ -53,8 +53,14 @@ public class JavaSnipsMain {
 
 //        testJ();
 
-        testDate();
+//        testDate();
 
+//        testSSNCanada();
+//        testCHI();
+//
+//        testStreet();
+
+        testClassdate();
 
 
 //        String classTest = "[\\a]";
@@ -125,7 +131,86 @@ public class JavaSnipsMain {
     public static void testDate() {
         BDValidator bdValidator = new BDValidator();
         String myDate = "2/0/12";
-        logger.info("Validated?:  {}", bdValidator.validate(myDate));
+        logger.info("Is '{}' a valid?  {}", myDate, bdValidator.validate(myDate) == 0 ? "yes" : "no");
+
+    }
+
+    public static void testSSNCanada() {
+        String ssnPat = "(\\d{3}[-?]\\d{3}[-?]\\d{3}|\\d{3}[\\s?]\\d{3}[\\s?]\\d{3}|\\d{3}[.?]\\d{3}[.?]\\d{3})";
+        String toSearch = "123123123";
+        jregex.Pattern jPat = new jregex.Pattern(ssnPat);
+        jregex.Matcher jMat = jPat.matcher(toSearch);
+
+        if (jMat.find()) {
+            logger.info("Found pattern:  {}", jMat.group(0));
+        }
+        else {
+            logger.info("No matched pattern.");
+        }
+    }
+
+    public static void testCHI() {
+        String chiPat = "((0[1-9]|[1-2][0-9]|30|31)(0[1-9]|10|11|12)([1-9][0-9])(.|-|\\s)?([0-9][0-9][0-9][0-9]))";
+//        String chiSearch = "310480-1234";
+        String chiSearch = "999999-1234";
+
+        ChiValidator chiValidator = new ChiValidator();
+        ChiValidatorFixed chiValidatorFixed = new ChiValidatorFixed();
+        ChiValidatorFixed2 chiValidatorFixed2 = new ChiValidatorFixed2();
+
+        jregex.Pattern jPat = new jregex.Pattern(chiPat);
+        jregex.Matcher jMat = jPat.matcher(chiSearch);
+
+        if (jMat.find()) {
+            logger.info("Found pattern:  {}", jMat.group(0));
+        }
+        else {
+            logger.info("No matched pattern.");
+        }
+        int Val1 = chiValidator.validate(chiSearch);
+        int Val2 = chiValidatorFixed.validate(chiSearch);
+        int Val3 = chiValidatorFixed2.validate(chiSearch);
+        logger.info("Valide CHI?  {}", Val1);
+//        logger.info("Validated Fixed1 CHI?  {}", Val2);
+//        logger.info("Val1:  Is it Valid?  {}", Val2 == 0 ? "Yes": "NO");
+        logger.info("Val3:  {}",  Val3);
+    }
+
+
+    public static void testStreet(){
+        String strPat = "(\\d{1,4} [a-zA-z\\s]{1,20}(?:AVENUE|Avenue|BOULEVARD|Boulevard|BLVD|Blvd|BYPASS|Bypass|BYP|Byp|CENTER|Center|CTR|Ctr|COURT|Court|CRESCENT|Crescent|CRECENT|Crecent|CRES|Cres|CREST|Crest|CRST|Crst|CROSSING|Crossing|XING|Xing|CROSSROAD|Crossroad|XRD|Xrd|DRIVE|Drive|FREEWAY|Freeway|FWY|Fwy|GATEWAY|Gateway|GTWY|Gtwy|HIGHWAY|Highway|HWY|Hwy|JUNCTION|Junction|JCT|Jct|KNOLL|Knoll|KNL|Knl|LANE|Lane|LN|Ln|MANOR|Manor|MNR|Mnr|MOTORWAY|Motorway|MTWY|Mtwy|PARKWAY|Parkway|PKWY|Pkwy|PARKWY|Parkwy|PLAZA|Plaza|PLZ|Plz|ROAD|Road|ROUTE|Route|RTE|Rte|RUE|Rue|SQUARE|Square|SQ|Sq|SQR|Sqr|STREET|Street|STR|Str|STRT|Strt|STREETS|Streets|STS|Sts|SUMMIT|Summit|SMT|Smt|VALLEY|Valley|VLY|Vly)\\W?(?=\\s|$))";
+        String toSearch = "One Center Center";
+
+        jregex.Pattern jPat = new jregex.Pattern(strPat);
+        jregex.Matcher jMat = jPat.matcher(toSearch);
+
+        if (jMat.find()) {
+            logger.info("Found pattern:  {}", jMat.group(0));
+        }
+        else {
+            logger.info("No matched pattern.");
+        }
+
+
+    }
+
+
+    public static void testClassdate() {
+        String datePat = "((?:(?<!\\:)(?<!\\:\\d)[0-3]?\\d(?:st|nd|rd|th)?\\s+(?:of\\s+)?(?:jan\\.?|january\\.?|JAN\\.?|JANUARY\\.?|January|feb\\.?|february\\.?|FEB\\.?|FEBRUARY\\.?|February|mar\\.?|march\\.?|MAR\\.?|MARCH\\.?|March|apr\\.?|april\\.?|APR\\.?|APRIL\\.?|April|may\\.?|May\\.?|MAY|jun\\.?|june\\.?|JUNE\\.?|JUN\\.?|June|jul\\.?|july\\.?|JUL\\.?|JULY\\.?|July|aug\\.?|august\\.?|AUG\\.?|AUGUST\\.?|August|sep\\.?|september\\.?|SEPTEMBER\\.?|SEPT\\.?|September|oct\\.?|october\\.?|OCT\\.?|OCTOBER\\.?|October|nov\\.?|november\\.?|November\\.?|NOV\\.?|NOVEMBER|dec\\.?|december\\.?|DEC\\.?|DECEMBER\\.?|December)|(?:jan\\.?|january\\.?|JAN\\.?|JANUARY\\.?|January|feb\\.?|february\\.?|FEB\\.?|FEBRUARY\\.?|February|mar\\.?|march\\.?|MAR\\.?|MARCH\\.?|March|apr\\.?|april\\.?|APR\\.?|APRIL\\.?|April|may\\.?|May\\.?|MAY|jun\\.?|june\\.?|JUNE\\.?|JUN\\.?|June|jul\\.?|july\\.?|JUL\\.?|JULY\\.?|July|aug\\.?|august\\.?|AUG\\.?|AUGUST\\.?|August|sep\\.?|september\\.?|SEPTEMBER\\.?|SEPT\\.?|September|oct\\.?|october\\.?|OCT\\.?|OCTOBER\\.?|October|nov\\.?|november\\.?|November\\.?|NOV\\.?|NOVEMBER|dec\\.?|december\\.?|DEC\\.?|DECEMBER\\.?|December)" +
+                                                                                                                                                                                                                                                                                "\\s+(?<!\\:)(?<!\\:\\d)[0-3]?\\d(?:st|nd|rd|th)?)(?:\\,)?\\s*(?:\\d{4})?|[0-3]?\\d[-\\./][0-3]?\\d[-\\./]\\d{2,4})";
+        String newPat = "(?i)(?:(?:(?:0[1-9]|[12][0-9]|3[01])(?:st|nd|rd|th)?\\s+(?:of\\s+)?(?:jan[.]?|january|feb[.]?|february|mar[.]?|march|apr[.]?|april|may|jun[.]?|june|jul[.]?|july|aug[.]?|august|sep[.]?|september|oct[.]?|october|nov[.]?|november|dec[.]?|december)\\s+(?:0[1-9]|[12][0-9]|3[01])(?:st|nd|rd|th)?\\s+,?\\s*(?:\\d{4}))|(?:0[1-9]|1[12]({date_delim1}[/.-])0[1-9]|1[0-9]|2[0-9]|3[01]{\\date_delim1}(\\d{2}|\\d{4})))";
+        String toSearch = "33rd of JAN, 20";
+
+        jregex.Pattern jPat = new jregex.Pattern(newPat);
+        jregex.Matcher jMat = jPat.matcher(toSearch);
+
+        if (jMat.find()) {
+            logger.info("Found pattern:  {}", jMat.group(0));
+        }
+        else {
+            logger.info("No matched pattern.");
+        }
+
 
     }
 }
