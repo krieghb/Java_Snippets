@@ -5,8 +5,15 @@ import com.krieghb.javasnips.experiments.dcdtests.BDValidator;
 import com.krieghb.javasnips.experiments.dcdtests.ChiValidator;
 import com.krieghb.javasnips.experiments.dcdtests.ChiValidatorFixed;
 import com.krieghb.javasnips.experiments.dcdtests.ChiValidatorFixed2;
+import com.krieghb.javasnips.experiments.inher.ChildAClass;
+import com.krieghb.javasnips.experiments.inher.ChildBClass;
+import com.krieghb.javasnips.experiments.inher.ParentClass;
 import com.krieghb.javasnips.regex.*;
 
+import com.krieghb.javasnips.threading.Heartbeat;
+import com.krieghb.javasnips.threading.HeartbeatExecutor;
+import com.krieghb.javasnips.threading.ThreadTest;
+import com.krieghb.javasnips.utils.ThreadSleep;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,7 +30,7 @@ import static com.krieghb.javasnips.utils.NumberConstants.LOOPY;
  */
 public class JavaSnipsMain {
     
-    private static Logger logger = LoggerFactory.getLogger(JavaSnipsMain.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(JavaSnipsMain.class);
     
     
     public static void main (String[] args) {
@@ -37,9 +44,9 @@ public class JavaSnipsMain {
 //        regexMain.testLookaheads();
 //        regexMain.testLoop();
 
-//        logger.info("\n\n\n");
-//        logger.info(Randomness.getRandomChar("hi") + "");
-//        logger.info("\n\n\n");
+//        LOGGER.info("\n\n\n");
+//        LOGGER.info(Randomness.getRandomChar("hi") + "");
+//        LOGGER.info("\n\n\n");
 
 //        testRegs();
 
@@ -60,7 +67,7 @@ public class JavaSnipsMain {
 //
 //        testStreet();
 
-        testClassdate();
+//        testClassdate();
 
 
 //        String classTest = "[\\a]";
@@ -76,12 +83,140 @@ public class JavaSnipsMain {
 //        jregex.Matcher matcher = pattern.matcher("F23DD6D789");
 //
 //        if (matcher.find()) {
-//            logger.info("Found the match:  '{}'", matcher.group(0));
+//            LOGGER.info("Found the match:  '{}'", matcher.group(0));
 //        }
 //        else {
-//            logger.info("Did NOT find the match");
+//            LOGGER.info("Did NOT find the match");
 //        }
 
+
+//        testStringFormat();
+
+
+//        String foo = "Hi %s";
+//        String bar = "there!";
+//
+//        String foobar = String.format(foo, bar);
+//
+//        LOGGER.info("Foo:  {}", foo);
+//        LOGGER.info("Bar:  {}", bar);
+//        LOGGER.info("Foobar:  {}", foobar);
+
+//
+//        for (int i = 0; i < 10; i++)
+//        LOGGER.info("Random:  {}", (long) (Math.random() * 1000) + 3000 );
+
+//        testThreadTest();
+
+
+        testInher();
+
+    }
+
+
+    public static void testInher() {
+        ParentClass pc = new ParentClass();
+        ParentClass pcA = new ParentClass();
+        ParentClass pcB = new ParentClass();
+        ChildAClass cA = new ChildAClass();
+        ChildBClass cB = new ChildBClass();
+
+
+        pcA = new ChildAClass("PA", 22, 33.3, "This is child A parent", false);
+        pcB = new ChildBClass("Par B", 38, 98.6, "This is Parent B", true);
+
+        pcA.sayHi();
+        pcB.sayHi();
+
+
+    }
+
+
+
+
+    public static void testThreadTest() {
+//        ThreadTest threadTest = new ThreadTest();
+//
+//        threadTest.runThreadTest();
+
+        Heartbeat heartbeat = new Heartbeat();
+        HeartbeatExecutor heartbeatExecutor = new HeartbeatExecutor();
+
+        heartbeat.runHeartbeats();
+//        heartbeatExecutor.createExecutor();
+
+        LOGGER.info("Created Threads, continuing on.");
+
+//        ThreadSleep.sleepForSeconds(30);
+//        LOGGER.info("Slept, now attempting to stop heartbeat1");
+//        heartbeatExecutor.setHeartbeat1Active(false);
+//        ThreadSleep.sleepForSeconds(15);
+//        LOGGER.info("Slept, now attempting to stop heartbeat2");
+//        heartbeatExecutor.setHeartbeat2Active(false);
+
+        ThreadSleep.sleepForSeconds(30);
+        LOGGER.info("Attempting to stop Heartbeat1");
+        heartbeat.setHeartbeat1Active(false);
+        ThreadSleep.sleepForSeconds(15);
+        LOGGER.info("Attempting to stop Heartbeat2");
+        heartbeat.setHeartbeat2Active(false);
+
+        LOGGER.info("Done with Threads");
+
+        LOGGER.info("Main complete.");
+
+    }
+
+
+    public static void testStringFormat() {
+
+
+        final String REPLACE1 = "<Replace1>";
+        final String REPLACE2 = "<Replace2>";
+
+        String rep1 = "test";
+        String rep2 = "broadcasting";
+
+        String foo = "This is a %s of the network %s system.";
+        String bar = "This is a <Replace1> of the network <Replace2> system.";
+        String foobar = "";
+
+
+        final int LOOP = 100000000;
+
+        Long loopStart1, loopEnd1, loopStart2, loopEnd2;
+        Long loopStartA, loopStartB, loopEndA, loopEndB;
+        Long loopTotalA = 0L;
+        Long loopTotalB = 0L;
+
+        loopStart1 = System.currentTimeMillis();
+        for (int i = 0; i < LOOP; i++)
+        {
+            loopStartA = System.nanoTime();
+            foobar = bar.replace(REPLACE1, rep1).replace(REPLACE2, rep2);
+            loopEndA = System.nanoTime();
+            loopTotalA += (loopEndA - loopStartA);
+        }
+        loopEnd1 = System.currentTimeMillis();
+        LOGGER.info("Replace:  {}", foobar);
+        LOGGER.info("Loop Total Timing:   {} ms", loopEnd1 - loopStart1);
+        LOGGER.info("Average:  ({}) ns", loopTotalA/LOOP);
+
+
+
+
+        loopStart2 = System.currentTimeMillis();
+        for (int i = 0; i < LOOP; i++)
+        {
+            loopStartB = System.nanoTime();
+            foobar = String.format(foo, rep1, rep2);
+            loopEndB = System.nanoTime();
+            loopTotalB += (loopEndB - loopStartB);
+        }
+        loopEnd2 = System.currentTimeMillis();
+        LOGGER.info("Format:  {}", foobar);
+        LOGGER.info("Loop Total Timing:   {} ms", loopEnd2 - loopStart2);
+        LOGGER.info("Average:  ({}) ns", loopTotalB/LOOP);
     }
 
     public static void testRegs() {
@@ -97,17 +232,17 @@ public class JavaSnipsMain {
         jregexPat = jregexMain.JRegLoopy();
 
 
-        logger.info("Number of Loops:  {};   Avg Loop #:  {}", LOOPY, AVG_LOOP);
-        logger.info("Average time of RegEx for each pattern type:  ");
+        LOGGER.info("Number of Loops:  {};   Avg Loop #:  {}", LOOPY, AVG_LOOP);
+        LOGGER.info("Average time of RegEx for each pattern type:  ");
         for (Map.Entry<String, Long> patPair : regexPat.entrySet()) {
-            logger.info("Pattern:    {};     Avg Time(ms):  {}", patPair.getKey(), (patPair.getValue() / AVG_LOOP));
+            LOGGER.info("Pattern:    {};     Avg Time(ms):  {}", patPair.getKey(), (patPair.getValue() / AVG_LOOP));
         }
 
-        logger.info("");
+        LOGGER.info("");
 
-        logger.info("Average time of JRegex for each pattern type:  ");
+        LOGGER.info("Average time of JRegex for each pattern type:  ");
         for (Map.Entry<String, Long> jPatPair : jregexPat.entrySet()) {
-            logger.info("Pattern:    {};     Avg Time(ms):  {}", jPatPair.getKey(), (jPatPair.getValue() / AVG_LOOP));
+            LOGGER.info("Pattern:    {};     Avg Time(ms):  {}", jPatPair.getKey(), (jPatPair.getValue() / AVG_LOOP));
         }
     }
 
@@ -118,10 +253,10 @@ public class JavaSnipsMain {
         jMat = jPat.matcher(foo);
 
         if (jMat.find()) {
-            logger.info("Found pattern:  {}", jMat.group(0));
+            LOGGER.info("Found pattern:  {}", jMat.group(0));
         }
         else {
-            logger.info("No matched pattern.");
+            LOGGER.info("No matched pattern.");
         }
 
     }
@@ -131,7 +266,7 @@ public class JavaSnipsMain {
     public static void testDate() {
         BDValidator bdValidator = new BDValidator();
         String myDate = "2/0/12";
-        logger.info("Is '{}' a valid?  {}", myDate, bdValidator.validate(myDate) == 0 ? "yes" : "no");
+        LOGGER.info("Is '{}' a valid?  {}", myDate, bdValidator.validate(myDate) == 0 ? "yes" : "no");
 
     }
 
@@ -142,10 +277,10 @@ public class JavaSnipsMain {
         jregex.Matcher jMat = jPat.matcher(toSearch);
 
         if (jMat.find()) {
-            logger.info("Found pattern:  {}", jMat.group(0));
+            LOGGER.info("Found pattern:  {}", jMat.group(0));
         }
         else {
-            logger.info("No matched pattern.");
+            LOGGER.info("No matched pattern.");
         }
     }
 
@@ -162,18 +297,18 @@ public class JavaSnipsMain {
         jregex.Matcher jMat = jPat.matcher(chiSearch);
 
         if (jMat.find()) {
-            logger.info("Found pattern:  {}", jMat.group(0));
+            LOGGER.info("Found pattern:  {}", jMat.group(0));
         }
         else {
-            logger.info("No matched pattern.");
+            LOGGER.info("No matched pattern.");
         }
         int Val1 = chiValidator.validate(chiSearch);
         int Val2 = chiValidatorFixed.validate(chiSearch);
         int Val3 = chiValidatorFixed2.validate(chiSearch);
-        logger.info("Valide CHI?  {}", Val1);
-//        logger.info("Validated Fixed1 CHI?  {}", Val2);
-//        logger.info("Val1:  Is it Valid?  {}", Val2 == 0 ? "Yes": "NO");
-        logger.info("Val3:  {}",  Val3);
+        LOGGER.info("Valide CHI?  {}", Val1);
+//        LOGGER.info("Validated Fixed1 CHI?  {}", Val2);
+//        LOGGER.info("Val1:  Is it Valid?  {}", Val2 == 0 ? "Yes": "NO");
+        LOGGER.info("Val3:  {}",  Val3);
     }
 
 
@@ -185,10 +320,10 @@ public class JavaSnipsMain {
         jregex.Matcher jMat = jPat.matcher(toSearch);
 
         if (jMat.find()) {
-            logger.info("Found pattern:  {}", jMat.group(0));
+            LOGGER.info("Found pattern:  {}", jMat.group(0));
         }
         else {
-            logger.info("No matched pattern.");
+            LOGGER.info("No matched pattern.");
         }
 
 
@@ -205,10 +340,10 @@ public class JavaSnipsMain {
         jregex.Matcher jMat = jPat.matcher(toSearch);
 
         if (jMat.find()) {
-            logger.info("Found pattern:  {}", jMat.group(0));
+            LOGGER.info("Found pattern:  {}", jMat.group(0));
         }
         else {
-            logger.info("No matched pattern.");
+            LOGGER.info("No matched pattern.");
         }
 
 
