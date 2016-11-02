@@ -107,24 +107,26 @@ public class JavaSnipsMain {
 //        LOGGER.info("Random:  {}", (long) (Math.random() * 1000) + 3000 );
 
 //        testThreadTest();
-
-
+        
         testInher();
 
     }
 
 
     public static void testInher() {
-        ParentClass pc = new ParentClass();
-        ParentClass pcA = new ParentClass();
-        ParentClass pcB = new ParentClass();
-        ChildAClass cA = new ChildAClass();
-        ChildBClass cB = new ChildBClass();
+        ParentClass pc = new ParentClass("Parent", 40, 99.9);
+        ParentClass pcA;
+        ParentClass pcB;
+        ChildAClass cA = new ChildAClass("Child A", 8, 11.1, "Be child A", true);
+        ChildBClass cB = new ChildBClass("Child B", 9, 12.2, "child B", false);
 
 
         pcA = new ChildAClass("PA", 22, 33.3, "This is child A parent", false);
         pcB = new ChildBClass("Par B", 38, 98.6, "This is Parent B", true);
 
+        pc.sayHi();
+        cA.sayHi();
+        cB.sayHi();
         pcA.sayHi();
         pcB.sayHi();
 

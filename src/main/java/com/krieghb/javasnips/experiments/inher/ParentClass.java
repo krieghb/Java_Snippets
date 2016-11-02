@@ -17,6 +17,17 @@ public class ParentClass {
     protected int parentAge;
     protected double parentDou;
 
+    public ParentClass() {
+        this.parentName = "Me";
+        this.parentAge = -1;
+        this.parentDou = -1.0;
+    }
+    public ParentClass(String parentName, int parentAge, double parentDou) {
+        this.parentName = parentName;
+        this.parentAge = parentAge;
+        this.parentDou = parentDou;
+    }
+
 
     public void sayHi() {
         LOGGER.info("Saying hi from parent.");
