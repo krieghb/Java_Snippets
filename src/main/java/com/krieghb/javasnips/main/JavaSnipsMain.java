@@ -1,6 +1,8 @@
 package com.krieghb.javasnips.main;
 
 
+import com.krieghb.javasnips.experiments.classes.ClassA;
+import com.krieghb.javasnips.experiments.classes.MyClass;
 import com.krieghb.javasnips.experiments.dcdtests.BDValidator;
 import com.krieghb.javasnips.experiments.dcdtests.ChiValidator;
 import com.krieghb.javasnips.experiments.dcdtests.ChiValidatorFixed;
@@ -17,7 +19,8 @@ import com.krieghb.javasnips.utils.ThreadSleep;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Map;
+import java.sql.Timestamp;
+import java.util.*;
 
 import static com.krieghb.javasnips.utils.NumberConstants.AVG_LOOP;
 import static com.krieghb.javasnips.utils.NumberConstants.LOOPY;
@@ -107,9 +110,118 @@ public class JavaSnipsMain {
 //        LOGGER.info("Random:  {}", (long) (Math.random() * 1000) + 3000 );
 
 //        testThreadTest();
-        
-        testInher();
 
+//        testArr();
+
+
+//        testStrReplace();
+
+
+
+//        testUtilDate();
+
+//        testListEqual();
+        testStringCompare();
+
+    }
+
+    public static void testStringCompare() {
+
+        String str1 = "Hi!";
+        String str2 = "!iH";
+        String str3 = "Hi!";
+
+        LOGGER.info("COMPARE:  {}", str1.equals(str2));
+        LOGGER.info("COMPARE:  {}", str1.equals(str3));
+    }
+
+    public static void testListEqual() {
+
+        List<ClassA> list1 = new ArrayList<>();
+        List<ClassA> list2 = new ArrayList<>();
+
+        ClassA c1 = new ClassA("Class 1", 1, new MyClass(1,11));
+        ClassA c2 = new ClassA("Class 2", 22, new MyClass(222,2222));
+
+        ClassA c3 = new ClassA("Class 1", 1, new MyClass(1,11));
+        ClassA c4 = new ClassA("Class 2", 22, new MyClass(222,2222));
+        list1.add(c1);
+        list1.add(c2);
+        list2.add(c4);
+        list2.add(c3);
+
+        LOGGER.info("List1:  {}", list1);
+        LOGGER.info("List2:  {}", list2);
+
+        if (list1.equals(list2)) {
+            LOGGER.info("Lists are equal");
+        }
+        else {
+            LOGGER.info("Lists are NOTNOTNOT equal");
+        }
+
+        boolean isEqual = true;
+        for (ClassA ca : list1) {
+            if (!list2.contains(ca)) {
+                isEqual = false;
+                break;
+            }
+        }
+        for (ClassA ca : list2) {
+            if (!list1.contains(ca)) {
+                isEqual = false;
+                break;
+            }
+        }
+        if (isEqual) {
+            LOGGER.info("Contains Lists are equal");
+        }
+        else {
+            LOGGER.info("Contains Lists are NOTNOTNOT equal");
+        }
+
+    }
+
+
+
+
+    public static void testUtilDate() {
+
+        Timestamp ts = new Timestamp(10);
+        Timestamp ts2 = new Timestamp(1482334602);
+
+        LOGGER.info("1 before 2:  {}", ts.before(ts2));
+        LOGGER.info("TS2:  {}", ts2);
+
+    }
+
+
+    public static void testStrReplace() {
+        String foo = "This is a test of the network broadcasting system.";
+        String bar = ",This, is, also, a,, test , ,of, the,,,, network.,";
+        String foobar;
+
+        foobar = bar.replaceAll("^,", "");
+        LOGGER.info("Before:  {}", bar);
+        LOGGER.info("After:   {}", foobar);
+
+
+
+    }
+
+
+
+    public static void testArr() {
+        byte[] testA = new byte[4];
+        byte[] testB = new byte[6];
+        testA[0] = 2;
+
+        if (Arrays.equals(testA, testB)) {
+            LOGGER.info("Arrays.equals are equal.");
+        }
+        else {
+            LOGGER.info("Arrays are not equal:  '{}' vs '{}'", testA, testB);
+        }
     }
 
 

@@ -1,0 +1,38 @@
+{
+  "name": "react_snippets",
+  "version": "0.0.1",
+  "description": "Collection of different react tutorials and snippets",
+  "main": "./src/js/index.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node server.js",
+    "compile": "webpack"
+  },
+  "author": "Me",
+  "license": "ISC",
+  "dependencies": {
+    "babel": "^6.5.2",
+    "babel-core": "^6.22.1",
+    "babel-loader": "^6.2.10",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-react": "^6.22.0",
+    "express": "^4.14.0",
+    "flux": "^3.1.2",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "webpack": "^1.14.0",
+    "webpack-dev-middleware": "^1.9.0"
+  },
+  "devDependencies": {
+    "jest-cli": "^18.1.0",
+    "react-tools": "^0.13.3"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "scriptPreprocessor": "./tools/preprocessor.js",
+    "testPathDirs": [
+      "./src/app",
+      "./src/client"
+    ]
+  }
+}
