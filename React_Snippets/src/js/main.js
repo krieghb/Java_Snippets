@@ -1,16 +1,19 @@
 /**
  * @author:  krido02 - 1/27/2017.
  */
+'use strict';
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Counter from './byos/Counter';
+const React = require('react');
+const ReactDOM = require('react-dom');
+const MyApp = require('./myApp');
+require('../style/main.scss');
 
-console.log('Hello World!');
+
+
 
 document.addEventListener('DOMContentLoaded', function() {
     ReactDOM.render(
-        React.createElement(Counter),
+        <MyApp  />,
         document.getElementById('main-container')
     );
 });
