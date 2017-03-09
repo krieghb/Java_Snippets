@@ -19,6 +19,8 @@ const React = require('react');
 
 let App = React.createClass({
 
+
+    //  Hi
     toConsole:  function() {
         if(!window.console){ window.console = {log: function(){} }; }
 
