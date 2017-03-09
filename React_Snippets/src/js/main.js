@@ -14,6 +14,6 @@ require('../style/main.scss');
 document.addEventListener('DOMContentLoaded', function() {
     ReactDOM.render(
         <MyApp  />,
-        document.getElementById('main-container')
+        document.getElementById('mounts')
     );
 });

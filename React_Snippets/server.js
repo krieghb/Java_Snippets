@@ -9,7 +9,7 @@ var app = express();
 
 var compiler = webpack(webpackConfig);
 
-app.use(express.static(__dirname + '/target'));
+app.use(express.static(__dirname + '/www'));
 
 app.use(webpackDevMiddleware(compiler, {
     hot: true,
@@ -21,7 +21,7 @@ app.use(webpackDevMiddleware(compiler, {
     historyApiFallback: true,
 }));
 
-var server = app.listen(3001, function() {
+var server = app.listen(3002, function() {
     var host = server.address().address;
     var port = server.address().port;
     console.log('Example app listening at http://%s:%s', host, port);

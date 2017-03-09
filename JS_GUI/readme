@@ -1,0 +1,14 @@
+
+
+To run javascript
+    1)  Open terminal
+        a)  if not already up to date with dependencies:
+            $> npm install
+        b)  $> npm start
+        npm start will run the webpack and server
+
+    2)  Open web browser
+    3)  Go to localhost:3001  (if this is changed in server.js go to the specified port).
+
+
+
