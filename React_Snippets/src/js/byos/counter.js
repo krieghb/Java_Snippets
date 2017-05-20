@@ -22,7 +22,7 @@ let Counter = React.createClass({
     },
 
     componentWillReceiveProps: function (newProps) {
-        console.log('componentWillReceiveProps', nextProps.count);
+        console.log('componentWillReceiveProps', newProps.count);
         this.setState({count: newProps.count});
 
     },
@@ -39,7 +39,7 @@ let Counter = React.createClass({
                 <button onClick={() => {
                     this.setState({count: this.state.count - 1});
                 }} >
-                    Descrease!
+                    Decrease!
                 </button>
             </div>
         );

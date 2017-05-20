@@ -121,9 +121,317 @@ public class JavaSnipsMain {
 //        testUtilDate();
 
 //        testListEqual();
-        testStringCompare();
+//        testStringCompare();
+
+
+//        ReverseIt3();
+//
+//        FindWord();
+
+//        FindSumArray();
+
+//        ReverseSentence();
+
+        ShiftItLeft();
+        ShiftItRight();
+
 
     }
+
+    /**
+     * Shifts an array n positions to the left.
+     */
+    public static void ShiftItLeft() {
+        int[] testArrA = {1, 2, 3, 4, 5, 6, 7};
+        int[] testArrB = new int[testArrA.length];
+        int shiftN = 5;
+
+        int modIndex;
+
+        for (int i = 0; i < testArrA.length; i++) {
+            modIndex = (shiftN + i) % testArrA.length;
+            testArrB[modIndex] = testArrA[i];
+        }
+
+        LOGGER.info("Shifting Right {} spaces.", shiftN);
+        LOGGER.info("Right Before:  {}", Arrays.toString(testArrA));
+        LOGGER.info("Right After:   {}", Arrays.toString(testArrB));
+
+    }
+
+    /**
+     * Shifts an array n positions to the right
+     */
+    public static void ShiftItRight() {
+        int[] testArrA = {1, 2, 3, 4, 5, 6, 7};
+        int[] testArrB = new int[testArrA.length];
+        int shiftN = 5;
+
+        int modIndex;
+
+        for (int i = testArrA.length - 1; i > 0; i--) {
+            modIndex = (shiftN + i) % testArrA.length;
+            testArrB[i] = testArrA[modIndex];
+        }
+
+        LOGGER.info("Shifting Left {} spaces.", shiftN);
+        LOGGER.info("Left Before:  {}", Arrays.toString(testArrA));
+        LOGGER.info("Left After:   {}", Arrays.toString(testArrB));
+    }
+
+    public static void ReverseSentence() {
+        String str = "    Hi      There             Everybody!!     ";
+
+        LOGGER.info("Original String:  {}", str);
+        ReverseSent(str);
+    }
+
+    private static void ReverseSent(String str) {
+        String[] strArr = str.split("\\s+");
+        LOGGER.info("Split:   {}", Arrays.toString(strArr));
+        LOGGER.info("Custom:  {}", Arrays.toString(StringSplit(str)));
+
+
+        int maxI = strArr.length / 2;
+
+        for (int i = 0; i < maxI; i++) {
+            String temp = strArr[i];
+            strArr[i] = strArr[strArr.length - 1 - i];
+            strArr[strArr.length - 1 - i] = temp;
+        }
+
+        LOGGER.info("Finished:  {}", Arrays.toString(strArr));
+
+    }
+
+    private static String[] StringSplit(String str) {
+        int startI = 0;
+        int endI = 0;
+
+        int spaceCount = 0;
+        boolean spacePrev = false;
+        for (int i = 0; i < str.length(); i++ ) {
+            if (str.charAt(i) == ' ') {
+                if (!spacePrev) {
+                    spaceCount++;
+                    spacePrev = true;
+                }
+                else {
+                    continue;
+                }
+            }
+            else {
+                spacePrev = false;
+            }
+
+        }
+        if (str.charAt(0) == ' ') {
+            spaceCount--;
+        }
+        if (str.charAt(str.length() - 1) == ' ') {
+            spaceCount--;
+        }
+
+
+
+        String[] foobar = new String[spaceCount + 1];
+        int arrI = 0;
+        spacePrev = false;
+        if (str.charAt(0) == ' ') {
+            spacePrev = true;
+        }
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == ' ') {
+                if (!spacePrev) {
+                    endI = i;
+                    foobar[arrI++] = str.substring(startI, endI);
+                    startI = endI + 1;
+                    spacePrev = true;
+                }
+                else {
+                    endI++;
+                    startI++;
+                }
+            }
+            else {
+                if (spacePrev) {
+                    endI++;
+                }
+                spacePrev  = false;
+            }
+        }
+//        LOGGER.info("Prior:  {}", Arrays.toString(foobar));
+        if (!(str.charAt(str.length() - 1) == ' ')) {
+            foobar[arrI] = str.substring(endI);
+        }
+//        LOGGER.info("Post:   {}", Arrays.toString(foobar));
+
+        return foobar;
+
+    }
+
+    public static void FindSumArray() {
+
+        Double[] doubleArr = {1.2, 3.2, 1.2, 2.2, 5.2, 8.2, 1.2, 4.2, 3.2};
+        Integer[] intArr = {1, 2, 3, 2, 1, 3, 1, 2, 3, 4, 5, 6, 7};
+
+
+//        findSum(doubleArr, 6.4);
+        findSum(intArr, 5);
+
+
+
+
+    }
+
+    private static void findSum(Number[] numArr, Number numSum) {
+
+        Arrays.sort(numArr);
+        LOGGER.info("Sorted Array:  {}", Arrays.toString(numArr));
+        int startIndex = 0;
+        int endIndex = numArr.length - 1;
+        while (startIndex < endIndex) {
+            if (numSum instanceof Float || numSum instanceof Double) {
+                Double doubleSum = sum(numArr[startIndex], numArr[endIndex]).doubleValue();
+                if (doubleSum.equals(numSum)) {
+                    LOGGER.info("Sum matches:  {} + {} = {}", numArr[startIndex], numArr[endIndex], numSum);
+                    startIndex++;
+                }
+                else if (doubleSum.compareTo(numSum.doubleValue()) > 0) {
+                    LOGGER.info("Sum does NOT match:  {} + {} = {}", numArr[startIndex], numArr[endIndex], doubleSum);
+                    endIndex--;
+                }
+                else {
+                    LOGGER.info("Sum does NOT match:  {} + {} = {}", numArr[startIndex], numArr[endIndex], doubleSum);
+                    startIndex++;
+                }
+            }
+
+            else {
+                Long longSum = sum(numArr[startIndex], numArr[endIndex]).longValue();
+//                LOGGER.info("COMPARE:  {} to {} is:  {}", longSum, numSum.longValue(), longSum.compareTo(numSum.longValue()));
+                if (longSum.compareTo(numSum.longValue()) == 0) {
+                    LOGGER.info("Sum matches:  {} + {} = {}", numArr[startIndex], numArr[endIndex], numSum);
+                    startIndex++;
+                }
+                else if (longSum.compareTo(numSum.longValue()) > 0) {
+                    LOGGER.info("Sum is Too big:  {} + {} = {}", numArr[startIndex], numArr[endIndex], longSum);
+                    endIndex--;
+                }
+                else {
+                    LOGGER.info("Sum is Too small:  {} + {} = {}", numArr[startIndex], numArr[endIndex], longSum);
+                    startIndex++;
+                }
+            }
+
+//            Number newSum = sum(numArr[startIndex], numArr[endIndex]);
+//            if ( newSum.equals(numSum)) {
+//                LOGGER.info("Sum matches:  {} + {} = {}", numArr[startIndex], numArr[endIndex], numSum);
+//                startIndex++;
+//                endIndex--;
+//            }
+//            else {
+//                LOGGER.info("Sum does NOT match:  {} + {} = {}", numArr[startIndex], numArr[endIndex], newSum);
+//                endIndex--;
+//            }
+        }
+
+
+    }
+
+    private static Number sum (Number numberA, Number numberB) {
+        Number sumVal;
+        if( numberA instanceof Float || numberA instanceof Double ) {
+            sumVal = numberA.doubleValue() + numberB.doubleValue();
+        } else {
+            sumVal = numberA.longValue() + numberB.longValue();
+        }
+        return sumVal;
+    }
+
+    public static void FindWord() {
+        String str = "Hi There      Mister.!^*-(";
+        LOGGER.info("Orig:  {}", str);
+//        String newStr = str.replaceAll("[.!@#$%^&*();:,<.>/?{}\\[\\]+=_\\-\"']", "");
+        String newStr = str.replaceAll("[^a-zA-Z\\s]", "");
+        LOGGER.info("New:   {}", newStr);
+        String[] strArr = newStr.split("\\s+");
+        String longWord = "";
+        for (int i = 0; i < strArr.length; i++) {
+            if (strArr[i].length() > longWord.length()) {
+                longWord = strArr[i];
+            }
+        }
+
+        LOGGER.info("Longest:  {}", longWord);
+
+        LOGGER.info("String Array:  {}", Arrays.toString(strArr));
+    }
+
+    public static void ReverseIt3() {
+
+        String str = "Hi There Everyone!";
+        String[] sArr = str.split("(?!^)");
+
+        StringBuilder sb = new StringBuilder();
+        LOGGER.info("SB:  {}", sb.toString());
+
+        String temp;
+        int endI = 0;
+
+        for (int i = 0; i < sArr.length / 2; i++) {
+            temp = sArr[i];
+            endI = sArr.length - 1 - i;
+            sArr[i] = sArr[endI];
+            sArr[endI] = temp;
+        }
+
+        for (String s : sArr) {
+            sb.append(s);
+        }
+
+        LOGGER.info("Reversed 2:  {}", sb.toString());
+    }
+
+    public static void ReverseIt2() {
+
+        String str = "Hi There Everyone!";
+        char[] charArr = str.toCharArray();
+        LOGGER.info("Orig Arr:  {}", Arrays.toString(charArr))   ;
+
+        char temp;
+        int endI = 0;
+
+        for (int i = 0; i < charArr.length / 2; i++) {
+            temp = charArr[i];
+            endI = charArr.length - 1 - i;
+            charArr[i] = charArr[endI];
+            charArr[endI] = temp;
+        }
+
+        LOGGER.info("Reversed 2:  {}", new String(charArr));
+    }
+    public static void ReverseIt() {
+        String str = "Hi There Everyone!";
+        char[] charStr = new char[str.length()];
+        char tempChar;
+        int rIndex;
+
+        for (int i = 0; i < str.length(); i++) {
+            tempChar = str.charAt(i);
+            rIndex = str.length() - 1 - i;
+
+            charStr[i] = str.charAt(rIndex);
+            charStr[rIndex] = tempChar;
+        }
+
+        str = new String(charStr);
+
+
+        LOGGER.info("REVERSED:  {}", str);
+        LOGGER.info("REVERSED:  {}", charStr);
+    }
+
 
     public static void testStringCompare() {
 

@@ -48,7 +48,7 @@ let basicLine = React.createClass({
     },
 
     componentWillReceiveProps: function (nextProps, nextContent) {
-        // console.log("Next Props:  " + JSON.stringify(nextProps));
+        console.log("Next Props:  " + JSON.stringify(nextProps));
         let self = this;
         self.setState({
           config: nextProps.config,
